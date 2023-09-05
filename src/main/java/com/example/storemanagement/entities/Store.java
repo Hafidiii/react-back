@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor @NoArgsConstructor
 @Entity
 @Table(name = "stock")
-public class Stock {
+public class Store {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private double quantity;

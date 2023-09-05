@@ -16,6 +16,8 @@ public class ClientDto {
     private String firstName;
     private String lastName;
     private String phone;
-    private String eamil;
+    private String email;
     private String password;
+    private String status;
+    private String role;
 }

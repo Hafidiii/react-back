@@ -1,25 +1,25 @@
 package com.example.storemanagement.controller;
 
-import com.example.storemanagement.entities.Command;
-import com.example.storemanagement.service.CommandService;
+import com.example.storemanagement.entities.Order;
+import com.example.storemanagement.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/commands")
-public class CommandController {
+public class OrderController {
 
     @Autowired
-    private CommandService commandService;
+    private OrderService commandService;
 
     @GetMapping("/getCommand")
-    public Command getCommand(@RequestParam Long id) {
+    public Order getCommand(@RequestParam Long id) {
         return commandService.getCommandById(id);
     }
 
     @GetMapping("/getAll")
-    public List<Command> getAllCommands() {
+    public List<Order> getAllCommands() {
         return commandService.getAllCommands();
     }
 

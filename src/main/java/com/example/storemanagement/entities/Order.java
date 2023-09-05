@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "commands")
-public class Command {
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

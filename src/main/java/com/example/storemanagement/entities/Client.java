@@ -22,15 +22,15 @@ public class Client {
    private String firstName;
    private String lastName;
    private String phone;
-   private String eamil;
+   private String email;
    private String password;
    private String status;
 
    @ManyToMany(fetch = FetchType.EAGER)
-   private Set<Roles> roles;
+   private Set<Role> roles;
 
 
    @OneToMany(mappedBy = "client")
-   private Set<Command> command = new HashSet<>();
+   private Set<Order> command = new HashSet<>();
 
 }

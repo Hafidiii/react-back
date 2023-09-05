@@ -24,7 +24,7 @@ public class Product{
     private double quantity;
 
     @ManyToMany(mappedBy = "product")
-    private Set<Command> command = new HashSet<>();
+    private Set<Order> command = new HashSet<>();
 
 
 

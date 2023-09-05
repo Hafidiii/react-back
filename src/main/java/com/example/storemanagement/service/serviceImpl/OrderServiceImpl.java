@@ -1,17 +1,17 @@
 package com.example.storemanagement.service.serviceImpl;
 
-import com.example.storemanagement.entities.Command;
-import com.example.storemanagement.repository.CommandRepository;
-import com.example.storemanagement.service.CommandService;
+import com.example.storemanagement.entities.Order;
+import com.example.storemanagement.repository.OrderRepository;
+import com.example.storemanagement.service.OrderService;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CommandServiceImpl implements CommandService {
+public class OrderServiceImpl implements OrderService {
 
-    private CommandRepository commandRepository;
+    private OrderRepository commandRepository;
 
-    public CommandServiceImpl(CommandRepository commandRepository) {
+    public OrderServiceImpl(OrderRepository commandRepository) {
         this.commandRepository = commandRepository;
     }
 
@@ -26,12 +26,12 @@ public class CommandServiceImpl implements CommandService {
     }
 
     @Override
-    public Command getCommandById(Long id) {
+    public Order getCommandById(Long id) {
         return commandRepository.findById(id).get();
     }
 
     @Override
-    public List<Command> getAllCommands() {
+    public List<Order> getAllCommands() {
         return commandRepository.findAllCommands("CONFIRMED");
     }
 

@@ -1,19 +1,19 @@
 package com.example.storemanagement.service;
 
-import com.example.storemanagement.entities.Command;
+import com.example.storemanagement.entities.Order;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public interface CommandService {
+public interface OrderService {
 
     public void validateCommend();
     public void rejectCommend();
 
-    public Command getCommandById(Long id);
+    public Order getCommandById(Long id);
 
-    public List<Command> getAllCommands();
+    public List<Order> getAllCommands();
 
     public void delete(Long id);
     public void deleteAll();

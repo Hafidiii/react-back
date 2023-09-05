@@ -1,7 +1,7 @@
 package com.example.storemanagement.service.serviceImpl;
 
 import com.example.storemanagement.entities.Client;
-import com.example.storemanagement.entities.Roles;
+import com.example.storemanagement.entities.Role;
 import com.example.storemanagement.service.ClientService;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if(client ==null ) throw new UsernameNotFoundException("User not found");
         UserDetails userDetails = User.withUsername(client.getUsername())
                 .password(client.getPassword())
-                .roles(client.getRoles().stream().map(Roles::getRoleName).toArray(String[]::new))
+                .roles(client.getRoles().stream().map(Role::getRoleName).toArray(String[]::new))
                 .build();
 
         return userDetails;
