@@ -16,7 +16,7 @@ public interface ClientService {
 
     Map<String, Object> authenticate(LoginDto loginDto);
 
-    Client signup(ClientDto clientDto);
+    Map<String, Object>  signup(ClientDto clientDto);
     Map<String, Object> update(ClientDto clientDto);
 
     Map<String, Object> remove(Long id);

@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 public class Role {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String roleName;
 }

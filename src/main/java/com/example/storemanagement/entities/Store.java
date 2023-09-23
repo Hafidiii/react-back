@@ -1,25 +1,27 @@
 package com.example.storemanagement.entities;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.example.storemanagement.support.BaseEntity;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
-@Data
-@AllArgsConstructor @NoArgsConstructor
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
-@Table(name = "stock")
-public class Store {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private double quantity;
+public class Store extends BaseEntity {
 
+    private Double quantity;
+    private String emplacement;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Product> products = new ArrayList<>();
+    @OneToMany(mappedBy = "store")
+    @ToString.Exclude
+    private Set<Product> products;
 
-    
 }

@@ -1,30 +1,35 @@
 package com.example.storemanagement.entities;
 
+import com.example.storemanagement.support.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "products")
-public class Product{
+public class Product  extends BaseEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+    private String title;
     private double price;
-    private double quantity;
+    private String currency;
+    private String company;
+    private String info;
+    private boolean inCart;
+    private double count;
+    private double total;
 
-    @ManyToMany(mappedBy = "product")
-    private Set<Order> command = new HashSet<>();
+    @ManyToMany(mappedBy = "products")
+    private Set<Order> orders = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
 
 
 

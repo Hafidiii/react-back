@@ -16,7 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-import static com.example.storemanagement.constants.Constants.*;
+import static com.example.storemanagement.utils.GlobalParameters.*;
+
 
 @Service
 @Transactional
@@ -41,7 +42,20 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<Client> getAllUsers() {
-        return clientRepository.findAllClients("ACTIVE");
+
+        List<Client> users = new ArrayList<>();
+        List<Client> all = clientRepository.findAllClients("ACTIVE");
+
+
+        all.forEach(client -> {
+            Role role = client.getRoles().stream().findFirst().orElse(null);
+
+            if (!Objects.isNull(role) && "USER".equals(role.getRoleName())) {
+                users.add(client);
+            }
+        });
+
+        return users;
     }
 
     @Override
@@ -66,10 +80,18 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client signup(ClientDto clientDto) {
+    public Map<String, Object> signup(ClientDto clientDto) {
+        Map<String, Object> result = new HashMap<>();
         Client client = clientRepository.findByUsername(clientDto.getUsername()).orElse(null);
 
-        if (client != null) throw new RuntimeException("User already exist");
+        if (!Objects.isNull(client)) {
+            result.put(SUCCESS, false);
+            result.put(MESSAGE, " User already exist");
+            result.put(DATA, null);
+
+            return result;
+        }
+        ;
 
         Role role = roleRepository.findByRoleName(clientDto.getRole());
         Set<Role> roles = new HashSet<>();
@@ -86,7 +108,12 @@ public class ClientServiceImpl implements ClientService {
                 .roles(roles)
                 .build();
 
-        return clientRepository.save(client);
+        clientRepository.save(client);
+
+        result.put(SUCCESS, true);
+        result.put(MESSAGE, "You have been registered successfully");
+
+        return result;
     }
 
     @Override

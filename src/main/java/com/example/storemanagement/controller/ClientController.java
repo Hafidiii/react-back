@@ -16,6 +16,7 @@ import java.util.Map;
 @RequestMapping("/api/clients")
 @AllArgsConstructor
 @NoArgsConstructor
+@CrossOrigin(origins = "*")
 public class ClientController {
 
     @Autowired
@@ -33,7 +34,7 @@ public class ClientController {
     }
 
     @PostMapping("/signup")
-    public Client signup(@RequestBody ClientDto clientDto) {
+    public Map<String, Object> signup(@RequestBody ClientDto clientDto) {
         return clientService.signup(clientDto);
 
     }

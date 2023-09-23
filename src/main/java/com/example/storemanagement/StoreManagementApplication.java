@@ -10,8 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Arrays;
-
 @SpringBootApplication
 public class StoreManagementApplication {
 
@@ -24,7 +22,7 @@ public class StoreManagementApplication {
         return args -> {
 
             //add roles
-            roleService.addRoles(Arrays.asList("ADMIN", "USER"));
+            //roleService.addRoles(Arrays.asList("ADMIN", "USER"));
 
             ClientDto client1 = ClientDto.builder()
                     .email("karim@gmail.com")
@@ -48,9 +46,89 @@ public class StoreManagementApplication {
                     .build();
 
 
+            ClientDto client3 = ClientDto.builder()
+                    .email("hafid@gmail.com")
+                    .phone("212700998877")
+                    .firstName("aitoubouhou")
+                    .lastName("hafid")
+                    .password("admin")
+                    .role("USER")
+                    .username("admin")
+                    .build();
+
+
+            ClientDto client4 = ClientDto.builder()
+                    .email("hafid@gmail.com")
+                    .phone("212700998877")
+                    .firstName("aitoubouhou")
+                    .lastName("hafid")
+                    .password("test")
+                    .role("USER")
+                    .username("test")
+                    .build();
+
+
+            ClientDto client5 = ClientDto.builder()
+                    .email("hafid@gmail.com")
+                    .phone("212700998877")
+                    .firstName("aitoubouhou")
+                    .lastName("user")
+                    .password("user")
+                    .role("USER")
+                    .username("user")
+                    .build();
+
+            ClientDto client6 = ClientDto.builder()
+                    .email("hafid@gmail.com")
+                    .phone("212700998877")
+                    .firstName("aitoubouhou")
+                    .lastName("user")
+                    .password("user")
+                    .role("USER")
+                    .username("user")
+                    .build();
+
+            ClientDto client7 = ClientDto.builder()
+                    .email("hafid@gmail.com")
+                    .phone("212700998877")
+                    .firstName("aitoubouhou")
+                    .lastName("user")
+                    .password("user")
+                    .role("USER")
+                    .username("user")
+                    .build();
+
+            ClientDto client8 = ClientDto.builder()
+                    .email("hafid@gmail.com")
+                    .phone("212700998877")
+                    .firstName("aitoubouhou")
+                    .lastName("user")
+                    .password("user")
+                    .role("USER")
+                    .username("user")
+                    .build();
+
+            ClientDto client9 = ClientDto.builder()
+                    .email("hafid@gmail.com")
+                    .phone("212700998877")
+                    .firstName("aitoubouhou")
+                    .lastName("user")
+                    .password("user")
+                    .role("USER")
+                    .username("user")
+                    .build();
+
+
             //add users
             clientService.signup(client1);
             clientService.signup(client2);
+            clientService.signup(client3);
+            clientService.signup(client4);
+            clientService.signup(client5);
+            clientService.signup(client6);
+            clientService.signup(client7);
+            clientService.signup(client8);
+            clientService.signup(client9);
 
         };
     }

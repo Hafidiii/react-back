@@ -11,8 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.storemanagement.constants.Constants.MESSAGE;
-import static com.example.storemanagement.constants.Constants.SUCCESS;
+import static com.example.storemanagement.utils.GlobalParameters.*;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -31,9 +30,8 @@ public class ProductServiceImpl implements ProductService {
         }
 
          product = Product.builder()
-                .name(productdto.getName())
+                .title(productdto.getName())
                 .price(productdto.getPrice())
-                .quantity(productdto.getQuantity())
                 .build();
         productRepository.save(product);
         map.put(SUCCESS, true);
@@ -52,9 +50,8 @@ public class ProductServiceImpl implements ProductService {
         }
 
          product = Product.builder()
-                .name(productdto.getName())
+                .title(productdto.getName())
                 .price(productdto.getPrice())
-                .quantity(productdto.getQuantity())
                 .build();
         productRepository.save(product);
         map.put(SUCCESS, true);
