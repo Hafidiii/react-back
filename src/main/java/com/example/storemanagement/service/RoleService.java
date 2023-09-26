@@ -1,7 +1,9 @@
 package com.example.storemanagement.service;
 
-import java.util.List;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+@Service
 public interface RoleService {
 
     void addRoles(List<String> rolesName);

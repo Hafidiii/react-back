@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private ClientService clientService;
+    private final ClientService clientService;
 
     public UserDetailsServiceImpl(ClientService clientService) {
         this.clientService = clientService;
@@ -20,12 +20,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Client client = clientService.getUserByUserName(username);
-        if(client ==null ) throw new UsernameNotFoundException("User not found");
-        UserDetails userDetails = User.withUsername(client.getUsername())
+        if (client == null) throw new UsernameNotFoundException("User not found");
+
+        return User.withUsername(client.getUsername())
                 .password(client.getPassword())
                 .roles(client.getRoles().stream().map(Role::getRoleName).toArray(String[]::new))
                 .build();
-
-        return userDetails;
     }
 }

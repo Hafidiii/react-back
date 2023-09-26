@@ -13,14 +13,15 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/clients")
-@AllArgsConstructor
-@NoArgsConstructor
 public class ClientController {
+    private final ClientService clientService;
 
     @Autowired
-    private ClientService clientService;
-
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
+    }
 
     @GetMapping("/getUserByUserName")
     public Client getUserByUserName(@RequestParam String username) {

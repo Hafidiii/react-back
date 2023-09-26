@@ -3,24 +3,31 @@ package com.example.storemanagement.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity
-public class Store {
+@Builder
+public class Command {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int quantity;
-    private String emplacement;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
+    private String status;
 
-    @ManyToOne
-    @JoinColumn(name = "product")
-    private Product product;
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "client")
+    private Client client;
+
+    @ManyToMany(mappedBy = "command", cascade = CascadeType.ALL)
+    private List<Product> products = new ArrayList<>();
+
+
 }

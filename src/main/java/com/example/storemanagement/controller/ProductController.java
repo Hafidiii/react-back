@@ -18,13 +18,8 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping("/add")
-    public Map<String, Object> saveProduct(@RequestBody ProductDto product) {
+    public Product saveProduct(@RequestBody ProductDto product) {
         return productService.addProduct(product);
-    }
-
-    @PostMapping("/update")
-    public Map<String, Object> updateProduct(@RequestBody ProductDto productdto) {
-        return productService.updateProduct(productdto);
     }
 
     @GetMapping("/get")

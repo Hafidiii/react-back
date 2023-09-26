@@ -1,4 +1,4 @@
-package com.example.storemanagement.security;
+package com.example.storemanagement.config;
 
 import com.example.storemanagement.service.serviceImpl.UserDetailsServiceImpl;
 import lombok.AllArgsConstructor;

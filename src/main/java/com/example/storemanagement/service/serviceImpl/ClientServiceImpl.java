@@ -67,13 +67,15 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client signup(ClientDto clientDto) {
+        Set<Role> roles = new HashSet<>();
         Client client = clientRepository.findByUsername(clientDto.getUsername()).orElse(null);
 
         if (client != null) throw new RuntimeException("User already exist");
 
-        Role role = roleRepository.findByRoleName(clientDto.getRole());
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
+        clientDto.getRoleDto().forEach(roleDto -> {
+            Role role = roleRepository.findByRoleName(roleDto.getRoleName());
+            roles.add(role);
+        });
 
         client = Client.builder()
                 .username(clientDto.getUsername())

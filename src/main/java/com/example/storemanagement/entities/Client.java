@@ -29,8 +29,4 @@ public class Client {
    @ManyToMany(fetch = FetchType.EAGER)
    private Set<Role> roles;
 
-
-   @OneToMany(mappedBy = "client")
-   private Set<Order> command = new HashSet<>();
-
 }

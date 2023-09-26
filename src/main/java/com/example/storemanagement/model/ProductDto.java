@@ -1,18 +1,21 @@
 package com.example.storemanagement.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+import java.util.List;
+import java.util.Set;
+
+@Getter
+@Setter
+@Builder
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductDto {
-
     private Long id;
-    private String name;
+    private String title;
+    private String company;
+    private String currency;
     private double price;
-    private double quantity;
+    private List<CommandDto> commands;
 }
