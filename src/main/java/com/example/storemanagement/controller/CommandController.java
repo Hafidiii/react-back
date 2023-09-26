@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/commands")
+@CrossOrigin(origins = "*")
+@RequestMapping("/api/commands")
 public class CommandController {
 
     private final CommandService commandService;
