@@ -24,6 +24,7 @@ public class Product{
     private String company;
     private String currency;
     private double price;
+    private int count;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

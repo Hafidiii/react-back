@@ -23,10 +23,9 @@ public class StoreController {
         return storeService.getAllStores();
     }
 
-    @GetMapping("/editQuantity/{id}")
-    Map<String, Object> editQuantity(@PathVariable Long id, @RequestParam int quantity) {
+    @GetMapping("/editQuantity")
+    Map<String, Object> editQuantity(@RequestParam Long id, @RequestParam int quantity) {
         return storeService.editQuantity(id, quantity);
     }
-
 
 }

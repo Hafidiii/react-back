@@ -16,7 +16,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -87,7 +86,36 @@ public class StoreManagementApplication {
                     .price(35000L)
                     .currency("MAD")
                     .build();
-
+            ProductDto productDto4 = ProductDto.builder()
+                    .title("iphone 14pro max")
+                    .company("apple")
+                    .price(35000L)
+                    .currency("MAD")
+                    .build();
+            ProductDto productDto5 = ProductDto.builder()
+                    .title("iphone 14pro max")
+                    .company("apple")
+                    .price(35000L)
+                    .currency("MAD")
+                    .build();
+            ProductDto productDto6 = ProductDto.builder()
+                    .title("iphone 14pro max")
+                    .company("apple")
+                    .price(35000L)
+                    .currency("MAD")
+                    .build();
+            ProductDto productDto7 = ProductDto.builder()
+                    .title("iphone 14pro max")
+                    .company("apple")
+                    .price(35000L)
+                    .currency("MAD")
+                    .build();
+            ProductDto productDto8 = ProductDto.builder()
+                    .title("iphone 14pro max")
+                    .company("apple")
+                    .price(35000L)
+                    .currency("MAD")
+                    .build();
 
 
             //add users
@@ -98,6 +126,11 @@ public class StoreManagementApplication {
             Product product1 = productService.addProduct(productDto1);
             Product product2 = productService.addProduct(productDto2);
             Product product3 = productService.addProduct(productDto3);
+            Product product4 = productService.addProduct(productDto4);
+            Product product5 = productService.addProduct(productDto5);
+            Product product6 = productService.addProduct(productDto6);
+            Product product7 = productService.addProduct(productDto7);
+            Product product8 = productService.addProduct(productDto8);
 
             //add store
             StoreDto store1 = StoreDto.builder()
@@ -118,6 +151,11 @@ public class StoreManagementApplication {
             storeService.save(store1, product1);
             storeService.save(store2, product2);
             storeService.save(store3, product3);
+            storeService.save(store2, product4);
+            storeService.save(store3, product5);
+            storeService.save(store1, product6);
+            storeService.save(store3, product7);
+            storeService.save(store1, product8);
 
         };
     }

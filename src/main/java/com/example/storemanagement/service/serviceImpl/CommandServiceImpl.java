@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static com.example.storemanagement.constants.Constants.MESSAGE;
 import static com.example.storemanagement.constants.Constants.SUCCESS;
@@ -40,11 +41,16 @@ public class CommandServiceImpl implements CommandService {
     public Map<String, Object> save(CommandDto commandDto) {
         Map<String, Object> results = new HashMap<>();
         List<Product> products = Lists.newArrayList();
+        AtomicReference<Double> amount = new AtomicReference<>(0.0);
         try {
 
             commandDto.getProductDto().forEach(product -> {
                 Product byId = productRepository.findById(product.getId()).orElse(null);
-                products.add(byId);
+                if (!Objects.isNull(byId)) {
+                    amount.updateAndGet(v -> v + Math.multiplyExact(product.getCount(), (int) byId.getPrice()));
+                    products.add(byId);
+                }
+
             });
 
             Client client = clientRepository.findById(commandDto.getClientDto().getId()).orElse(null);
@@ -61,6 +67,7 @@ public class CommandServiceImpl implements CommandService {
             command.setStatus("CREATED");
             command.setCreatedDate(LocalDateTime.now());
             command.setUpdatedDate(LocalDateTime.now());
+            command.setTotal(amount.get());
             command.getProducts().addAll(products
                     .stream()
                     .peek(p -> p.getCommand().add(command))

@@ -15,6 +15,7 @@ public class CommandDto {
     private String createdDate;
     private String updatedDate;
     private String status;
+    private double total;
     private ClientDto clientDto;
     private List<ProductDto> productDto;
 }

@@ -21,6 +21,7 @@ public class Command {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
     private String status;
+    private double total;
 
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "client")

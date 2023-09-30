@@ -26,6 +26,7 @@ public class ProductServiceImpl implements ProductService {
                 .company(productdto.getCompany())
                 .currency(productdto.getCurrency())
                 .price(productdto.getPrice())
+                .count(0)
                 .build();
         return productRepository.save(product);
     }

@@ -17,5 +17,6 @@ public class ProductDto {
     private String company;
     private String currency;
     private double price;
+    private int count;
     private List<CommandDto> commands;
 }
