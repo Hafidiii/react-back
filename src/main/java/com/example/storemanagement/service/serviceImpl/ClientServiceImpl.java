@@ -66,16 +66,27 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client signup(ClientDto clientDto) {
+    public Map<String, Object> signup(ClientDto clientDto) {
+        Map<String, Object> map = new HashMap<>();
         Set<Role> roles = new HashSet<>();
         Client client = clientRepository.findByUsername(clientDto.getUsername()).orElse(null);
 
-        if (client != null) throw new RuntimeException("User already exist");
+        if (!Objects.isNull(client)) {
+            map.put(SUCCESS, false);
+            map.put(MESSAGE, "This username ' " + clientDto.getUsername() + " ' has been already taken");
 
-        clientDto.getRoleDto().forEach(roleDto -> {
-            Role role = roleRepository.findByRoleName(roleDto.getRoleName());
+            return map;
+        }
+
+        if (!Objects.isNull(clientDto.getRoleDto())) {
+            clientDto.getRoleDto().forEach(roleDto -> {
+                Role role = roleRepository.findByRoleName(roleDto.getRoleName());
+                roles.add(role);
+            });
+        } else {
+            Role role = roleRepository.findByRoleName("USER");
             roles.add(role);
-        });
+        }
 
         client = Client.builder()
                 .username(clientDto.getUsername())
@@ -88,7 +99,13 @@ public class ClientServiceImpl implements ClientService {
                 .roles(roles)
                 .build();
 
-        return clientRepository.save(client);
+        clientRepository.save(client);
+
+        map.put(SUCCESS, true);
+        map.put(MESSAGE, "Your registration has been succeeded");
+
+        return map;
+
     }
 
     @Override

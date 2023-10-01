@@ -34,7 +34,7 @@ public class ClientController {
     }
 
     @PostMapping("/signup")
-    public Client signup(@RequestBody ClientDto clientDto) {
+    public Map<String, Object> signup(@RequestBody ClientDto clientDto) {
         return clientService.signup(clientDto);
 
     }
