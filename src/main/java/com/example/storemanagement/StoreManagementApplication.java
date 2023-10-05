@@ -1,14 +1,18 @@
 package com.example.storemanagement;
 
+import com.example.storemanagement.entities.Client;
 import com.example.storemanagement.entities.Product;
+import com.example.storemanagement.entities.Role;
 import com.example.storemanagement.model.ClientDto;
 import com.example.storemanagement.model.ProductDto;
-import com.example.storemanagement.model.RoleDto;
 import com.example.storemanagement.model.StoreDto;
+import com.example.storemanagement.repository.ClientRepository;
+import com.example.storemanagement.repository.RoleRepository;
 import com.example.storemanagement.service.ClientService;
 import com.example.storemanagement.service.ProductService;
 import com.example.storemanagement.service.RoleService;
 import com.example.storemanagement.service.StoreService;
+import com.google.common.collect.Lists;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 @SpringBootApplication
@@ -27,110 +32,84 @@ public class StoreManagementApplication {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner(ClientService clientService,
+    CommandLineRunner commandLineRunner(PasswordEncoder passwordEncoder,
+                                        ClientRepository clientRepository,
                                         ProductService productService,
                                         StoreService storeService,
-                                        RoleService roleService) {
+                                        RoleRepository roleRepository) {
         return args -> {
 
-            //add roles
-            roleService.addRoles(Arrays.asList("ADMIN", "USER"));
+            List<Client> clients = Lists.newArrayList();
 
-            RoleDto user = RoleDto.builder()
+            Role roleUser = Role.builder()
                     .roleName("USER")
                     .build();
 
-            RoleDto admin = RoleDto.builder()
+            Role roleAdmin = Role.builder()
                     .roleName("ADMIN")
                     .build();
 
-            ClientDto client1 = ClientDto.builder()
+            //add roles
+            roleRepository.save(roleAdmin);
+            roleRepository.save(roleUser);
+
+            Client admin = Client.builder()
                     .email("karim@gmail.com")
                     .phone("0708080808")
-                    .firstName("aitoubouhou")
-                    .lastName("abdelkrim")
-                    .password("1234")
+                    .firstName("AITOUBOUHOU")
+                    .lastName("KARIM")
+                    .password(passwordEncoder.encode("1234"))
                     .username("karim")
-                    .roleDto(Set.of(admin))
+                    .status("ACTIVE")
+                    .roles(Set.of(roleAdmin))
                     .build();
 
-
-            ClientDto client2 = ClientDto.builder()
+            Client user = Client.builder()
                     .email("hafid@gmail.com")
                     .phone("212700998877")
-                    .firstName("aitoubouhou")
-                    .lastName("Hafid")
-                    .password("1234")
-                    .roleDto(Set.of(user))
+                    .firstName("AITOUBOUHOU")
+                    .lastName("HAFID")
+                    .password(passwordEncoder.encode("1234"))
                     .username("hafid")
+                    .status("ACTIVE")
+                    .roles(Set.of(roleUser))
                     .build();
 
+            clients.add(user);
+            clients.add(admin);
 
-            ProductDto productDto1 = ProductDto.builder()
-                    .title("iphone XR")
-                    .company("apple")
-                    .price(10000L)
-                    .currency("MAD")
-                    .build();
+            clientRepository.saveAll(clients);
 
-            ProductDto productDto2 = ProductDto.builder()
-                    .title("iphone 12pro")
-                    .company("apple")
-                    .price(15000L)
-                    .currency("MAD")
-                    .build();
+            for (int i = 0; i < 5; i++) {
+                List<Client> list = Lists.newArrayList();
+                 Client client1 = Client.builder()
+                        .email("test@gmail.com")
+                        .phone("0708080808")
+                        .firstName("TEST")
+                        .lastName("TEST")
+                         .password(passwordEncoder.encode("test"))
+                        .username("test")
+                         .status("ACTIVE")
+                        .roles(Set.of(roleAdmin))
+                        .build();
 
-            ProductDto productDto3 = ProductDto.builder()
-                    .title("iphone 14pro max")
-                    .company("apple")
-                    .price(35000L)
-                    .currency("MAD")
-                    .build();
-            ProductDto productDto4 = ProductDto.builder()
-                    .title("iphone 14pro max")
-                    .company("apple")
-                    .price(35000L)
-                    .currency("MAD")
-                    .build();
-            ProductDto productDto5 = ProductDto.builder()
-                    .title("iphone 14pro max")
-                    .company("apple")
-                    .price(35000L)
-                    .currency("MAD")
-                    .build();
-            ProductDto productDto6 = ProductDto.builder()
-                    .title("iphone 14pro max")
-                    .company("apple")
-                    .price(35000L)
-                    .currency("MAD")
-                    .build();
-            ProductDto productDto7 = ProductDto.builder()
-                    .title("iphone 14pro max")
-                    .company("apple")
-                    .price(35000L)
-                    .currency("MAD")
-                    .build();
-            ProductDto productDto8 = ProductDto.builder()
-                    .title("iphone 14pro max")
-                    .company("apple")
-                    .price(35000L)
-                    .currency("MAD")
-                    .build();
+                Client client2 = Client.builder()
+                        .email("xxx@gmail.com")
+                        .phone("212700998877")
+                        .firstName("XXX")
+                        .lastName("XXX")
+                        .password(passwordEncoder.encode("user"))
+                        .username("user")
+                        .status("ACTIVE")
+                        .roles(Set.of(roleUser))
+                        .build();
 
+                list.add(client1);
+                list.add(client2);
 
-            //add users
-            clientService.signup(client1);
-            clientService.signup(client2);
+                clientRepository.saveAll(list);
+            }
 
-            //add Products
-            Product product1 = productService.addProduct(productDto1);
-            Product product2 = productService.addProduct(productDto2);
-            Product product3 = productService.addProduct(productDto3);
-            Product product4 = productService.addProduct(productDto4);
-            Product product5 = productService.addProduct(productDto5);
-            Product product6 = productService.addProduct(productDto6);
-            Product product7 = productService.addProduct(productDto7);
-            Product product8 = productService.addProduct(productDto8);
 
             //add store
             StoreDto store1 = StoreDto.builder()
@@ -138,24 +117,19 @@ public class StoreManagementApplication {
                     .emplacement("floor1")
                     .build();
 
-            StoreDto store2 = StoreDto.builder()
-                    .quantity(100)
-                    .emplacement("floor2")
-                    .build();
 
-            StoreDto store3 = StoreDto.builder()
-                    .quantity(1000)
-                    .emplacement("floor3")
-                    .build();
+            for (int i = 0; i < 18; i++) {
+                ProductDto productDto = ProductDto.builder()
+                        .title("iphone XR")
+                        .company("apple")
+                        .price(10000L)
+                        .currency("MAD")
+                        .build();
 
-            storeService.save(store1, product1);
-            storeService.save(store2, product2);
-            storeService.save(store3, product3);
-            storeService.save(store2, product4);
-            storeService.save(store3, product5);
-            storeService.save(store1, product6);
-            storeService.save(store3, product7);
-            storeService.save(store1, product8);
+                Product product = productService.addProduct(productDto);
+                storeService.save(store1, product);
+            }
+
 
         };
     }

@@ -17,9 +17,12 @@ public interface ClientService {
     Map<String, Object> authenticate(LoginDto loginDto);
 
     Map<String, Object> signup(ClientDto clientDto);
+
     Map<String, Object> update(ClientDto clientDto);
 
-    Map<String, Object> remove(Long id);
+    Map<String, Object> deactivate(Long id);
+
+    Map<String, Object> reactivate(Long id);
 
 
 }

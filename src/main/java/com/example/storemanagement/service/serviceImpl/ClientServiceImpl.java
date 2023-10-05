@@ -41,11 +41,11 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<Client> getAllUsers() {
-        return clientRepository.findAllClients("ACTIVE");
+        return clientRepository.findAll();
     }
 
     @Override
-    public Map<String, Object> remove(Long id) {
+    public Map<String, Object> deactivate(Long id) {
         Map<String, Object> map = new HashMap<>();
         Client byId = clientRepository.findById(id)
                 .orElse(null);
@@ -60,7 +60,28 @@ public class ClientServiceImpl implements ClientService {
         byId.setStatus("INACTIVE");
         clientRepository.save(byId);
         map.put(SUCCESS, true);
-        map.put(MESSAGE, "The user has been removed successfully");
+        map.put(MESSAGE, "The user has been deactivated successfully");
+        return map;
+
+    }
+
+    @Override
+    public Map<String, Object> reactivate(Long id) {
+        Map<String, Object> map = new HashMap<>();
+        Client byId = clientRepository.findById(id)
+                .orElse(null);
+
+        if (byId == null) {
+            map.put(SUCCESS, false);
+            map.put(MESSAGE, "User not found");
+
+            return map;
+        }
+
+        byId.setStatus("ACTIVE");
+        clientRepository.save(byId);
+        map.put(SUCCESS, true);
+        map.put(MESSAGE, "The user has been reactivated successfully");
         return map;
 
     }
